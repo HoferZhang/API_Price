@@ -7,6 +7,7 @@ import xlwt
 
 
 CaseFileName = "case.xlsx"
+ResultFileName = "result.xls"
 SheetName = "Sheet1"
 
 url_DocIndex = \
@@ -23,7 +24,7 @@ headers = {
 
 
 # 执行请求，保存结果
-def run():
+def run(name):
     totalcase = get_sum_case(CaseFileName, SheetName)
     lenresult = len(get_result(url_DocIndex, get_param(paramDoc, CaseFileName, 0), headers))
     matrix = [[0 for i in range(lenresult)] for i in range(totalcase)]
@@ -40,7 +41,7 @@ def run():
         for n in range(len(matrix[0])):
             ws.write(m, n, matrix[m][n])
 
-    w.save('resultw.xls')
+    w.save(name)
 
 
 # 请求接口，获取结果
@@ -79,4 +80,4 @@ def get_sum_case(filename, sheetname):
     return sheet.nrows
 
 
-run()
+run(ResultFileName)
