@@ -23,7 +23,7 @@ headers = {
     "User-Agent": "micromessenger"}
 
 
-# 执行请求，保存结果
+# 记录请求结果，并保存
 def run(name):
     print ("\n*****************************\n测试开始，正在获取用例总数...")
     totalcase = get_sum_case(CaseFileName, SheetName)
@@ -52,7 +52,7 @@ def run(name):
     print ("  保存成功，执行结束\n*****************************")
 
 
-# 请求接口，获取结果
+# 请求接口，获取返回值
 def get_result(url, params, header):
     rsp = requests.get(url=url, params=params, headers=header)
     rsp_json = json.loads(rsp.text)
@@ -70,6 +70,7 @@ def get_result(url, params, header):
     return result
 
 
+# 从case.xlsx获取dicid并填充至paramDoc
 def get_param(param, filename, row):
     case = xlrd.open_workbook(filename)
     sheet = case.sheet_by_name("Sheet1")
@@ -82,6 +83,7 @@ def get_param(param, filename, row):
         return 0
 
 
+# 获得case.xlsx行数作为case总数
 def get_sum_case(filename, sheetname):
     workbook = xlrd.open_workbook(filename)
     sheet = workbook.sheet_by_name(sheetname)
