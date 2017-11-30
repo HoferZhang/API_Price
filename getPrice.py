@@ -25,15 +25,19 @@ headers = {
 
 # 执行请求，保存结果
 def run(name):
+    print ("***测试开始，获取用例数***")
     totalcase = get_sum_case(CaseFileName, SheetName)
+    print ("***用例总数为：%s***"%totalcase)
     lenresult = len(get_result(url_DocIndex, get_param(paramDoc, CaseFileName, 0), headers))
     matrix = [[0 for i in range(lenresult)] for i in range(totalcase)]
 
     for i in range(totalcase):
+        print ("正在执行caseId：%s"%i)
         matrix[i] = get_result(url_DocIndex, get_param(paramDoc, CaseFileName, i), headers)
 
-    print (matrix)
+    # print (matrix)
 
+    print ("***执行完毕，开始保存结果***")
     w = xlwt.Workbook()
     ws = w.add_sheet(u'Sheet1')
 
@@ -42,6 +46,7 @@ def run(name):
             ws.write(m, n, matrix[m][n])
 
     w.save(name)
+    print ("***保存成功，执行结束***")
 
 
 # 请求接口，获取结果
