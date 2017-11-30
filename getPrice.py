@@ -25,9 +25,9 @@ headers = {
 
 # 执行请求，保存结果
 def run(name):
-    print ("***测试开始，获取用例数***")
+    print ("\n测试开始，正在获取用例总数...")
     totalcase = get_sum_case(CaseFileName, SheetName)
-    print ("***用例总数为：%s***"%totalcase)
+    print ("用例总数为：%s\n开始执行...\n"%totalcase)
     lenresult = len(get_result(url_DocIndex, get_param(paramDoc, CaseFileName, 0), headers))
     matrix = [[0 for i in range(lenresult)] for i in range(totalcase)]
 
@@ -37,16 +37,19 @@ def run(name):
 
     # print (matrix)
 
-    print ("***执行完毕，开始保存结果***")
+    print ("\n执行完毕，开始保存结果...")
     w = xlwt.Workbook()
     ws = w.add_sheet(u'Sheet1')
+    raw0 = ["docId", "docName", "hospitalName", "titleName", "hospitalLevel", "consultPrice", "qaPrice"]
+    for i in range(len(raw0)):
+        ws.write(0, i, raw0[i])
 
     for m in range(len(matrix)):
         for n in range(len(matrix[0])):
-            ws.write(m, n, matrix[m][n])
+            ws.write(m+1, n, matrix[m][n])
 
     w.save(name)
-    print ("***保存成功，执行结束***")
+    print ("\n### 保存成功，执行结束 ###")
 
 
 # 请求接口，获取结果
@@ -57,11 +60,12 @@ def get_result(url, params, header):
     doc_id = rsp_json["msg"]["_id"]
     doc_name = rsp_json["msg"]["name"]
     hospital_name = rsp_json["msg"]["hospital"]["name"]
+    title_name = rsp_json["msg"]["title"]["name"]
     hospital_level = rsp_json["msg"]["hospital"]["level"]
     consult_price = rsp_json["msg"]["priceList"]["consultationPrice"]
     qa_price = rsp_json["msg"]["priceList"]["qaPrice"]
 
-    result = [doc_id, doc_name, hospital_name, hospital_level, consult_price, qa_price]
+    result = [doc_id, doc_name, hospital_name, title_name, hospital_level, consult_price, qa_price]
 
     return result
 
