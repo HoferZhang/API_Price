@@ -4,10 +4,12 @@ import requests
 import json
 import xlrd
 import xlwt
+import time
 
 
+CurrentTime = time.strftime('%Y%m%d_%H%M%S', time.localtime(time.time()))
 CaseFileName = "case.xlsx"
-ResultFileName = "result.xls"
+ResultFileName = "Result_"+CurrentTime+".xls"
 SheetName = "Sheet1"
 
 url_DocIndex = \
