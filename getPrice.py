@@ -8,7 +8,6 @@ import time
 
 
 CurrentTime = time.strftime('%Y%m%d_%H%M%S', time.localtime(time.time()))
-
 CaseFileName = "case.xlsx"
 ResultFileName = "Result_"+CurrentTime+".xls"
 SheetName = "Sheet1"
