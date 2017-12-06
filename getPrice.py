@@ -12,17 +12,28 @@ CaseFileName = "case.xlsx"
 ResultFileName = "Result_"+CurrentTime+".xls"
 SheetName = "Sheet1"
 
-url_DocIndex = \
-    "http://test.anxinyisheng.com/home/user/doc_detail"
-
 paramDoc = {
     "bizid": "573ae98d7f10087a048b4a61",
     "from": "doctor_list"}
+
+# 测试环境
+url_DocIndex = \
+    "http://test.anxinyisheng.com/home/user/doc_detail"
 
 headers = {
     "Wxid": "o79aixECshqXft8Cck5fMC7LdYZs",
     "Channel": "wx_anxinjiankang",
     "User-Agent": "micromessenger"}
+
+# # 线上环境
+# url_DocIndex = \
+#     "http://mobile.anxinyisheng.com/home/user/doc_detail"
+#
+# headers = {
+#     "Wxid": "oKoQnuEYYwxn7QbqKFIMiQJS-G_s",
+#     "Channel": "wx_anxinjiankang",
+#     "User-Agent": "micromessenger"}
+
 
 
 # 记录请求结果，并保存
