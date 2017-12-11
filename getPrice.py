@@ -4,47 +4,20 @@ import requests
 import json
 import xlrd
 import xlwt
-import time
-
-CurrentTime = time.strftime('%Y%m%d_%H%M%S', time.localtime(time.time()))
-CaseFileName = "case.xlsx"
-ResultFileName = "Result_" + CurrentTime + ".xls"
-SheetName = "Sheet1"
-
-paramDoc = {
-    "bizid": "573ae98d7f10087a048b4a61",
-    "from": "doctor_list"}
-
-# # 测试环境
-# url_DocIndex = \
-#     "http://test.anxinyisheng.com/home/user/doc_detail"
-#
-# headers = {
-#     "Wxid": "o79aixECshqXft8Cck5fMC7LdYZs",
-#     "Channel": "wx_anxinjiankang",
-#     "User-Agent": "micromessenger"}
-
-# 线上环境
-url_DocIndex = \
-    "http://mobile.anxinyisheng.com/home/user/doc_detail"
-
-headers = {
-    "Wxid": "oKoQnuEYYwxn7QbqKFIMiQJS-G_s",
-    "Channel": "wx_anxinjiankang",
-    "User-Agent": "micromessenger"}
+import data
 
 
 # 记录请求结果，并保存
-def run(name):
+def get_price(name):
     print ("\n*****************************\n测试开始，正在获取用例总数...")
-    totalcase = get_sum_case(CaseFileName, SheetName)
-    print ("  用例总数为：%s\n    开始执行..." % (totalcase + 1))
-    lenresult = len(get_result(url_DocIndex, get_param(paramDoc, CaseFileName, 0), headers))
+    totalcase = get_sum_case(data.CaseFileName, data.SheetName)
+    print ("  用例总数为：%s\n    开始执行..." % totalcase)
+    lenresult = len(get_result(data.url_DocIndex, get_param(data.paramDoc, data.CaseFileName, 0), data.headers))
     matrix = [[0 for i in range(lenresult)] for i in range(totalcase)]
 
     for i in range(totalcase):
         print ("      正在执行caseId：%s" % (i + 1))
-        matrix[i] = get_result(url_DocIndex, get_param(paramDoc, CaseFileName, i), headers)
+        matrix[i] = get_result(data.url_DocIndex, get_param(data.paramDoc, data.CaseFileName, i), data.headers)
 
     # print (matrix)
 
@@ -100,6 +73,3 @@ def get_sum_case(filename, sheetname):
     sheet = workbook.sheet_by_name(sheetname)
 
     return sheet.nrows
-
-
-run(ResultFileName)
