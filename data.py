@@ -14,11 +14,15 @@ paramDoc = {
 
 
 def select_env():
-    print('请选择执行的环境：\n1:正式环境\n2:测试环境')
-    env = int(raw_input())
+    print('\n'
+          '请输入数字选择执行环境\n'
+          '1 -> 正式环境\n'
+          '2 -> 测试环境\n')
+    env = int(raw_input(''))
 
     if env == 1:
-        # 线上环境
+        # 线上正式环境
+        print('\n已选择正式环境，即将开始执行...')
         url_DocIndex = \
             "http://mobile.anxinyisheng.com/home/user/doc_detail"
 
@@ -31,6 +35,7 @@ def select_env():
 
     elif env == 2:
         # 测试环境
+        print('\n已选择测试环境，即将开始执行...')
         url_DocIndex = \
             "http://test.anxinyisheng.com/home/user/doc_detail"
 
