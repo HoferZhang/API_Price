@@ -9,7 +9,7 @@ ResultFileName = Location + "Result_" + CurrentTime + ".xls"
 SheetName = "Sheet1"
 
 paramDoc = {
-    "bizid": "573ae98d7f10087a048b4a61",
+    # "bizid": "573ae98d7f10087a048b4a61",
     "from": "doctor_list"}
 
 
@@ -27,7 +27,7 @@ def select_env():
             "Channel": "wx_anxinjiankang",
             "User-Agent": "micromessenger"}
 
-        return url_DocIndex, headers
+        return [url_DocIndex, headers]
 
     elif env == 2:
         # 测试环境
@@ -39,4 +39,4 @@ def select_env():
             "Channel": "wx_anxinjiankang",
             "User-Agent": "micromessenger"}
 
-        return url_DocIndex, headers
+        return [url_DocIndex, headers]
