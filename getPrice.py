@@ -11,32 +11,36 @@ import data
 def get_price(name):
     env = data.select_env()
 
-    print ("\n*****************************\n测试开始，正在获取用例总数...")
-    totalcase = get_sum_case(data.CaseFileName, data.SheetName)
-    print ("  用例总数为：%s\n    开始执行..." % totalcase)
+    if env != 0:
+        print ("\n*****************************\n测试开始，正在获取用例总数...")
+        totalcase = get_sum_case(data.CaseFileName, data.SheetName)
+        print ("  用例总数为：%s\n    开始执行..." % totalcase)
 
-    lenresult = len(get_result(env[0], get_param(data.paramDoc, data.CaseFileName, 0), env[1]))
-    matrix = [[0 for i in range(lenresult)] for i in range(totalcase)]
+        lenresult = len(get_result(env[0], get_param(data.paramDoc, data.CaseFileName, 0), env[1]))
+        matrix = [[0 for i in range(lenresult)] for i in range(totalcase)]
 
-    for i in range(totalcase):
-        print ("      正在执行caseId：%s" % (i + 1))
-        matrix[i] = get_result(env[0], get_param(data.paramDoc, data.CaseFileName, i), env[1])
+        for i in range(totalcase):
+            print ("      正在执行caseId：%s" % (i + 1))
+            matrix[i] = get_result(env[0], get_param(data.paramDoc, data.CaseFileName, i), env[1])
 
-    # print (matrix)
+        # print (matrix)
 
-    print ("    执行完毕，开始保存结果...")
-    w = xlwt.Workbook()
-    ws = w.add_sheet(u'Sheet1')
-    raw0 = ["docId", "docName", "hospitalName", "titleName", "hospitalLevel", "consultPrice", "qaPrice"]
-    for i in range(len(raw0)):
-        ws.write(0, i, raw0[i])
+        print ("    执行完毕，开始保存结果...")
+        w = xlwt.Workbook()
+        ws = w.add_sheet(u'Sheet1')
+        raw0 = ["docId", "docName", "hospitalName", "titleName", "hospitalLevel", "consultPrice", "qaPrice"]
+        for i in range(len(raw0)):
+            ws.write(0, i, raw0[i])
 
-    for m in range(len(matrix)):
-        for n in range(len(matrix[0])):
-            ws.write(m + 1, n, matrix[m][n])
+        for m in range(len(matrix)):
+            for n in range(len(matrix[0])):
+                ws.write(m + 1, n, matrix[m][n])
 
-    w.save(name)
-    print ("  保存成功，执行结束\n*****************************")
+        w.save(name)
+        print ("  保存成功，执行结束\n*****************************")
+
+    else:
+        return int(0)
 
 
 # 请求接口，获取返回值

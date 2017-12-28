@@ -45,3 +45,5 @@ def select_env():
             "User-Agent": "micromessenger"}
 
         return [url_DocIndex, headers]
+    else:
+        return 0
