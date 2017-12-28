@@ -15,6 +15,8 @@ def get_price(name):
     lenresult = len(get_result(data.url_DocIndex, get_param(data.paramDoc, data.CaseFileName, 0), data.headers))
     matrix = [[0 for i in range(lenresult)] for i in range(totalcase)]
 
+
+
     for i in range(totalcase):
         print ("      正在执行caseId：%s" % (i + 1))
         matrix[i] = get_result(data.url_DocIndex, get_param(data.paramDoc, data.CaseFileName, i), data.headers)
