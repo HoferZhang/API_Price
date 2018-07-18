@@ -18,7 +18,7 @@ def select_env():
           '请输入数字选择执行环境\n'
           '1 -> 正式环境\n'
           '2 -> 测试环境\n')
-    env = int(raw_input(''))
+    env = int(input(''))
 
     if env == 1:
         # 线上正式环境
