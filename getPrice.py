@@ -4,24 +4,24 @@ import requests
 import json
 import xlrd
 import xlwt
-import data
+import enc_selector
 
 
 # 记录请求结果，并保存
 def get_price(name):
-    env = data.select_env()
+    env = enc_selector.select_env()
 
     if env != 0:
         print ("\n*****************************\n测试开始，正在获取用例总数...")
-        totalcase = get_sum_case(data.CaseFileName, data.SheetName)
+        totalcase = get_sum_case(enc_selector.CaseFileName, enc_selector.SheetName)
         print ("  用例总数为：%s\n    开始执行..." % totalcase)
 
-        lenresult = len(get_result(env[0], get_param(data.paramDoc, data.CaseFileName, 0), env[1]))
+        lenresult = len(get_result(env[0], get_param(enc_selector.paramDoc, enc_selector.CaseFileName, 0), env[1]))
         matrix = [[0 for i in range(lenresult)] for i in range(totalcase)]
 
         for i in range(totalcase):
             print ("      正在执行caseId：%s" % (i + 1))
-            matrix[i] = get_result(env[0], get_param(data.paramDoc, data.CaseFileName, i), env[1])
+            matrix[i] = get_result(env[0], get_param(enc_selector.paramDoc, enc_selector.CaseFileName, i), env[1])
 
         # print (matrix)
 
