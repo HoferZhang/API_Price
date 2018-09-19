@@ -1,6 +1,7 @@
 # -*- coding: utf8 -*-
 
 import time
+import xlrd
 
 CurrentTime = time.strftime('%Y%m%d_%H%M%S', time.localtime(time.time()))
 Location = "Case&Result/"
@@ -47,3 +48,12 @@ def select_env():
         return [url_DocIndex, headers]
     else:
         return 0
+
+
+
+# 获得case.xlsx行数作为case总数
+def get_sum_case(filename, sheetname):
+    workbook = xlrd.open_workbook(filename)
+    sheet = workbook.sheet_by_name(sheetname)
+
+    return sheet.nrows

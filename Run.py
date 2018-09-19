@@ -1,7 +1,7 @@
 # -*- coding: utf8 -*-
 
 import getPrice
-import enc_selector
+import dataOld
 
 
-getPrice.get_price(enc_selector.ResultFileName)
+getPrice.get_price(dataOld.ResultFileName)

@@ -4,24 +4,24 @@ import requests
 import json
 import xlrd
 import xlwt
-import enc_selector
+import dataOld
 
 
 # 记录请求结果，并保存
 def get_price(name):
-    env = enc_selector.select_env()
+    e = dataOld.select_env()
 
-    if env != 0:
+    if e != 0:
         print ("\n*****************************\n测试开始，正在获取用例总数...")
-        totalcase = get_sum_case(enc_selector.CaseFileName, enc_selector.SheetName)
+        totalcase = dataOld.get_sum_case(dataOld.CaseFileName, dataOld.SheetName)
         print ("  用例总数为：%s\n    开始执行..." % totalcase)
 
-        lenresult = len(get_result(env[0], get_param(enc_selector.paramDoc, enc_selector.CaseFileName, 0), env[1]))
+        lenresult = len(get_result(dataOld[0], get_param(dataOld.paramDoc, dataOld.CaseFileName, 0), dataOld[1]))
         matrix = [[0 for i in range(lenresult)] for i in range(totalcase)]
 
         for i in range(totalcase):
             print ("      正在执行caseId：%s" % (i + 1))
-            matrix[i] = get_result(env[0], get_param(enc_selector.paramDoc, enc_selector.CaseFileName, i), env[1])
+            matrix[i] = get_result(dataOld[0], get_param(dataOld.paramDoc, dataOld.CaseFileName, i), dataOld[1])
 
         # print (matrix)
 
@@ -44,7 +44,8 @@ def get_price(name):
 
 
 # 请求接口，获取返回值
-def get_result(url, params, header):
+def get_result(host, params, header):
+    url = host + '/home/user/doc_detail'
     rsp = requests.get(url=url, params=params, headers=header)
     rsp_json = json.loads(rsp.text)
 
@@ -74,9 +75,4 @@ def get_param(param, filename, row):
         return 0
 
 
-# 获得case.xlsx行数作为case总数
-def get_sum_case(filename, sheetname):
-    workbook = xlrd.open_workbook(filename)
-    sheet = workbook.sheet_by_name(sheetname)
 
-    return sheet.nrows
