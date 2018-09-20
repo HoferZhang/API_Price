@@ -42,7 +42,7 @@ def run_entrance():
     for i in range(totalcase):
         print("      正在执行caseId：%s" % (i + 1))
         matrix[i] = chat_price(host, wx_header, read_case(CaseFileName, i)[0], read_case(CaseFileName, i)[1])
-    print(matrix)
+    # print(matrix)
 
     print("    执行完毕，开始保存结果...")
     w = xlwt.Workbook()
@@ -51,8 +51,6 @@ def run_entrance():
     for i in range(len(raw0)):
         ws.write(0, i, raw0[i])
 
-    print(len(matrix))
-    print(len(matrix[0]))
     for m in range(len(matrix)):
         for n in range(len(matrix[0])):
             ws.write(m + 1, n, matrix[m][n])
@@ -87,8 +85,8 @@ def chat_price(host, wx_header, mobile, price, pwd=123456):
     rsp_price_list = requests.post(url=url_price_list, headers=header).json()
     a_list = rsp_price_list["msg"]["priceList"]
     s_list = ''
-    for i in range(len(a_list)-1):
-        s_list = str(a_list[i]) + ',' + str(a_list[i+1])
+    for i in a_list:
+        s_list = s_list + str(i) + ","
     price_list = [s_list, str(rsp_price_list["msg"]["currentPrice"]), str(price)]
 
     # 医生提交自主定价
