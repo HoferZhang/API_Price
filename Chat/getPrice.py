@@ -4,24 +4,24 @@ import requests
 import json
 import xlrd
 import xlwt
-import dataOld
+import Chat.dataOld as dataOld
 
 
 # 记录请求结果，并保存
 def get_price(name):
-    e = dataOld.select_env()
+    data = dataOld.select_env()
 
-    if e != 0:
+    if data != 0:
         print ("\n*****************************\n测试开始，正在获取用例总数...")
-        totalcase = dataOld.get_sum_case(dataOld.CaseFileName, dataOld.SheetName)
+        totalcase = dataOld.get_sum_case(data[2], data[3])
         print ("  用例总数为：%s\n    开始执行..." % totalcase)
 
-        lenresult = len(get_result(dataOld[0], get_param(dataOld.paramDoc, dataOld.CaseFileName, 0), dataOld[1]))
+        lenresult = len(get_result(data[0], get_param(data[2], 0), data[1]))
         matrix = [[0 for i in range(lenresult)] for i in range(totalcase)]
 
         for i in range(totalcase):
             print ("      正在执行caseId：%s" % (i + 1))
-            matrix[i] = get_result(dataOld[0], get_param(dataOld.paramDoc, dataOld.CaseFileName, i), dataOld[1])
+            matrix[i] = get_result(data[0], get_param(data[2], i), data[1])
 
         # print (matrix)
 
@@ -58,21 +58,20 @@ def get_result(host, params, header):
     qa_price = rsp_json["msg"]["priceList"]["qaPrice"]
 
     result = [doc_id, doc_name, hospital_name, title_name, hospital_level, consult_price, qa_price]
+    print(result)
 
     return result
 
 
 # 从case.xlsx获取dicid并填充至paramDoc
-def get_param(param, filename, row):
+def get_param(filename, row):
     case = xlrd.open_workbook(filename)
     sheet = case.sheet_by_name("Sheet1")
 
     # 获取行数据
     while row < sheet.nrows:
-        param["_id"] = sheet.cell_value(row, 0)
+        param = dict(_id=sheet.cell_value(row, 0))
         return param
-    else:
-        return 0
 
 
-
+get_price(dataOld.ResultFileName)

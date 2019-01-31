@@ -4,4 +4,3 @@ import getPrice
 import dataOld
 
 
-getPrice.get_price(dataOld.ResultFileName)
